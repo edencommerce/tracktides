@@ -34,9 +34,42 @@ tracktides/
 
 ## Getting Started
 
-1. Open `tracktides.xcodeproj` in Xcode
-2. Select a simulator or device target
-3. Press Cmd+R to build and run
+### First-Time Setup
+
+1. **Install development tools**:
+   ```bash
+   make setup
+   ```
+   This installs SwiftLint and SwiftFormat via Homebrew.
+
+2. **Open the project**:
+   ```bash
+   open tracktides.xcodeproj
+   ```
+
+3. **Build and run** (Cmd+R in Xcode)
+
+### Development Workflow
+
+```bash
+make format       # Auto-format code
+make lint         # Check for linting issues
+make check        # Run all checks
+```
+
+## Code Quality
+
+This project uses strict Swift development practices:
+
+- **SwiftLint** - Enforces style guidelines and best practices
+- **SwiftFormat** - Automatic code formatting (4-space indent, 120 char line length)
+- **Strict Concurrency** - Full Swift 6 data-race safety
+- **Warnings as Errors** - Zero-tolerance quality policy
+
+Configuration files:
+- `.swiftlint.yml` - Linting rules
+- `.swiftformat` - Formatting style
+- `.editorconfig` - Editor settings
 
 ## Features
 

@@ -1,0 +1,79 @@
+# SwiftFormat Configuration for tracktides
+# https://github.com/nicklockwood/SwiftFormat
+
+# Swift version
+--swiftversion 6.0
+
+# Indentation
+--indent 4
+--indentcase false
+--ifdef indent
+
+# Whitespace
+--trimwhitespace always
+--voidtype void
+
+# Wrapping
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapternary before-operators
+
+# Commas
+--commas inline
+
+# Semicolons
+--semicolons never
+
+# Line breaks
+--linebreaks lf
+
+# Empty braces
+--emptybraces spaced
+
+# Closures
+--closingparen balanced
+
+# Numbers
+--decimalgrouping 3,4
+--exponentcase lowercase
+--fractiongrouping disabled
+--hexgrouping 4,8
+--hexliteralcase uppercase
+--octalgrouping 4,8
+
+# Operators
+--operatorfunc spaced
+--nospaceoperators ..., ..<, ...
+
+# Ranges
+--ranges spaced
+
+# Rules to enable
+--enable isEmpty
+--enable sortedImports
+--enable blankLinesBetweenScopes
+--enable consecutiveSpaces
+--enable duplicateImports
+--enable unusedArguments
+--enable hoistPatternLet
+
+# Rules to disable
+--disable redundantSelf  # Some prefer explicit self
+--disable trailingCommas
+
+# File header
+--header strip
+
+# Self usage
+--self insert  # Use explicit 'self' for clarity
+
+# Minimum version requirement
+--minversion 0.58.0
+
+# Files to exclude
+--exclude tracktides/Preview\ Content
+--exclude .build
+--exclude Pods
+--exclude Carthage

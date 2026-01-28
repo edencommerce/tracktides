@@ -7,32 +7,8 @@ struct HomeView: View {
     @Binding var scrollToChartSection: ChartSection?
 
     /// Sample data - in production these would come from a data store
-    private let sampleShots: [Shot] = [
-        Shot(
-            date: Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date(),
-            medication: "Tirzepatide",
-            dosage: "15mg",
-            injectionSite: "Stomach - Lower Left",
-            painLevel: 2,
-            notes: "Felt some mild nausea a few hours after."
-        ),
-        Shot(
-            date: Calendar.current.date(byAdding: .day, value: -14, to: Date()) ?? Date(),
-            medication: "Tirzepatide",
-            dosage: "12.5mg",
-            injectionSite: "Thigh - Right",
-            painLevel: 1,
-            notes: ""
-        ),
-        Shot(
-            date: Calendar.current.date(byAdding: .day, value: -21, to: Date()) ?? Date(),
-            medication: "Tirzepatide",
-            dosage: "12.5mg",
-            injectionSite: "Stomach - Upper Right",
-            painLevel: 3,
-            notes: "First dose at this level."
-        )
-    ]
+    /// Created once via static method to avoid date calculations on every render
+    private let sampleShots: [Shot] = Self.createSampleShots()
 
     // Weight data
     private let startingWeight: Double = 250.0
@@ -44,6 +20,37 @@ struct HomeView: View {
     private let shotIntervalDays: Int = 7
 
     @State private var showingAddShot: Bool = false
+
+    private static func createSampleShots() -> [Shot] {
+        let calendar = Calendar.current
+        let now = Date()
+        return [
+            Shot(
+                date: calendar.date(byAdding: .day, value: -7, to: now) ?? now,
+                medication: "Tirzepatide",
+                dosage: "15mg",
+                injectionSite: "Stomach - Lower Left",
+                painLevel: 2,
+                notes: "Felt some mild nausea a few hours after."
+            ),
+            Shot(
+                date: calendar.date(byAdding: .day, value: -14, to: now) ?? now,
+                medication: "Tirzepatide",
+                dosage: "12.5mg",
+                injectionSite: "Thigh - Right",
+                painLevel: 1,
+                notes: ""
+            ),
+            Shot(
+                date: calendar.date(byAdding: .day, value: -21, to: now) ?? now,
+                medication: "Tirzepatide",
+                dosage: "12.5mg",
+                injectionSite: "Stomach - Upper Right",
+                painLevel: 3,
+                notes: "First dose at this level."
+            )
+        ]
+    }
 
     var body: some View {
         NavigationStack {

@@ -7,6 +7,9 @@ struct ContentView: View {
     @State private var selectedTab: AppTab = .home
     @State private var scrollToChartSection: ChartSection?
 
+    /// Reusable haptic generator - prepared once for responsive feedback
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
+
     var body: some View {
         TabView(selection: $selectedTab) {
             Tab("Home", systemImage: "house.fill", value: .home) {
@@ -28,9 +31,11 @@ struct ContentView: View {
                 ProfileView()
             }
         }
+        .onAppear {
+            hapticGenerator.prepare()
+        }
         .onChange(of: selectedTab) {
-            let generator = UIImpactFeedbackGenerator(style: .light)
-            generator.impactOccurred()
+            hapticGenerator.impactOccurred()
         }
         .enableInjection()
     }

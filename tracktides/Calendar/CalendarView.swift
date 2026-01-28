@@ -418,16 +418,21 @@ struct CalendarGridView: UIViewRepresentable {
         )
         calendarView.selectionBehavior = selection
 
-        DispatchQueue.main.async {
-            calendarView.reloadDecorations(forDateComponents: Array(self.shotDates), animated: false)
+        // Initial decoration load - defer to next run loop to ensure view is ready
+        let dates = Array(shotDates)
+        Task { @MainActor in
+            calendarView.reloadDecorations(forDateComponents: dates, animated: false)
         }
 
         return calendarView
     }
 
     func updateUIView(_ uiView: UICalendarView, context: Context) {
-        context.coordinator.shotDates = shotDates
-        uiView.reloadDecorations(forDateComponents: Array(shotDates), animated: true)
+        // Only reload decorations if shotDates actually changed
+        if context.coordinator.shotDates != shotDates {
+            context.coordinator.shotDates = shotDates
+            uiView.reloadDecorations(forDateComponents: Array(shotDates), animated: true)
+        }
 
         if let selection = uiView.selectionBehavior as? UICalendarSelectionSingleDate {
             let currentComponents = Calendar.current.dateComponents(

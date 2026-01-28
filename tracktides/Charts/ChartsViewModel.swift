@@ -7,51 +7,102 @@ import Foundation
 final class ChartsViewModel {
     // MARK: - State
 
-    var entries: [DayEntry] = []
-    var selectedTimeRange: ChartTimeRange = .month
+    var entries: [DayEntry] = [] {
+        didSet { invalidateEntriesCache() }
+    }
 
-    // MARK: - Computed Data (cached via @Observable)
+    var selectedTimeRange: ChartTimeRange = .month {
+        didSet { invalidateFilteredCache() }
+    }
+
+    // MARK: - Cached Data
+
+    private var _cachedAllWeightData: [ChartDataPoint]?
+    private var _cachedAllPainData: [ChartDataPoint]?
+    private var _cachedAllWeightChangeData: [ChartDataPoint]?
+    private var _cachedStartingWeight: Double?
+    private var _cachedWeightData: [ChartDataPoint]?
+    private var _cachedPainData: [ChartDataPoint]?
+    private var _cachedWeightChangeData: [ChartDataPoint]?
+
+    private func invalidateEntriesCache() {
+        _cachedAllWeightData = nil
+        _cachedAllPainData = nil
+        _cachedAllWeightChangeData = nil
+        _cachedStartingWeight = nil
+        invalidateFilteredCache()
+    }
+
+    private func invalidateFilteredCache() {
+        _cachedWeightData = nil
+        _cachedPainData = nil
+        _cachedWeightChangeData = nil
+    }
+
+    // MARK: - Computed Data (with caching)
 
     var allWeightData: [ChartDataPoint] {
-        entries.compactMap { entry in
+        if let cached = _cachedAllWeightData { return cached }
+        let result = entries.compactMap { entry -> ChartDataPoint? in
             guard let weight = entry.weight else { return nil }
             return ChartDataPoint(date: entry.date, value: weight)
         }.sorted { $0.date < $1.date }
+        _cachedAllWeightData = result
+        return result
     }
 
     var allPainData: [ChartDataPoint] {
-        entries.compactMap { entry in
+        if let cached = _cachedAllPainData { return cached }
+        let result = entries.compactMap { entry -> ChartDataPoint? in
             guard let shot = entry.shot, shot.painLevel > 0 else { return nil }
             return ChartDataPoint(date: entry.date, value: Double(shot.painLevel))
         }.sorted { $0.date < $1.date }
+        _cachedAllPainData = result
+        return result
     }
 
     var startingWeight: Double {
-        allWeightData.first?.value ?? 180
+        if let cached = _cachedStartingWeight { return cached }
+        let result = allWeightData.first?.value ?? 180
+        _cachedStartingWeight = result
+        return result
     }
 
     var allWeightChangeData: [ChartDataPoint] {
-        allWeightData.map { point in
+        if let cached = _cachedAllWeightChangeData { return cached }
+        let starting = startingWeight
+        let result = allWeightData.map { point in
             ChartDataPoint(
                 date: point.date,
-                value: point.value - startingWeight,
+                value: point.value - starting,
                 isAggregate: point.isAggregate
             )
         }
+        _cachedAllWeightChangeData = result
+        return result
     }
 
-    // MARK: - Visible Data (filtered by time range)
+    // MARK: - Visible Data (filtered by time range, cached)
 
     var weightData: [ChartDataPoint] {
-        filterByTimeRange(allWeightData)
+        if let cached = _cachedWeightData { return cached }
+        let result = filterByTimeRange(allWeightData)
+        _cachedWeightData = result
+        return result
     }
 
     var painData: [ChartDataPoint] {
-        filterByTimeRange(allPainData)
+        if let cached = _cachedPainData { return cached }
+        let result = filterByTimeRange(allPainData)
+        _cachedPainData = result
+        return result
     }
 
     var weightChangeData: [ChartDataPoint] {
-        filterByTimeRange(allWeightChangeData)
+        if let cached = _cachedWeightChangeData { return cached }
+        let result = filterByTimeRange(allWeightChangeData)
+        _cachedWeightChangeData = result
+        return result
     }
 
     // MARK: - Ranges

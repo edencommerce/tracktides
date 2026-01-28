@@ -33,42 +33,72 @@ enum ChartTimeRange: String, CaseIterable, Identifiable {
     }
 
     func dateRangeText(from startDate: Date, to endDate: Date) -> String {
-        let formatter = DateFormatter()
         switch self {
         case .day:
-            formatter.dateFormat = "EEE, MMM d, yyyy"
-            return formatter.string(from: endDate)
+            return DateRangeFormatters.dayFull.string(from: endDate)
         case .week:
-            formatter.dateFormat = "MMM d"
-            let start = formatter.string(from: startDate)
-            let end = formatter.string(from: endDate)
-            formatter.dateFormat = "yyyy"
-            let year = formatter.string(from: endDate)
+            let start = DateRangeFormatters.monthDay.string(from: startDate)
+            let end = DateRangeFormatters.monthDay.string(from: endDate)
+            let year = DateRangeFormatters.year.string(from: endDate)
             return "\(start)–\(end), \(year)"
         case .month:
-            formatter.dateFormat = "MMM d"
-            let start = formatter.string(from: startDate)
-            formatter.dateFormat = "MMM d, yyyy"
-            let end = formatter.string(from: endDate)
+            let start = DateRangeFormatters.monthDay.string(from: startDate)
+            let end = DateRangeFormatters.monthDayYear.string(from: endDate)
             return "\(start)–\(end)"
         case .sixMonths:
-            formatter.dateFormat = "MMM d, yyyy"
-            let start = formatter.string(from: startDate)
-            let end = formatter.string(from: endDate)
+            let start = DateRangeFormatters.monthDayYear.string(from: startDate)
+            let end = DateRangeFormatters.monthDayYear.string(from: endDate)
             return "\(start)–\(end)"
         case .year:
-            formatter.dateFormat = "MMM yyyy"
-            let start = formatter.string(from: startDate)
-            let end = formatter.string(from: endDate)
+            let start = DateRangeFormatters.monthYear.string(from: startDate)
+            let end = DateRangeFormatters.monthYear.string(from: endDate)
             return "\(start)–\(end)"
         }
     }
 }
 
+// MARK: - Cached Date Range Formatters
+
+private enum DateRangeFormatters {
+    static let dayFull: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE, MMM d, yyyy"
+        return formatter
+    }()
+
+    static let monthDay: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        return formatter
+    }()
+
+    static let year: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        return formatter
+    }()
+
+    static let monthDayYear: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy"
+        return formatter
+    }()
+
+    static let monthYear: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM yyyy"
+        return formatter
+    }()
+}
+
 // MARK: - Chart Data Point
 
-struct ChartDataPoint: Identifiable {
-    let id = UUID()
+struct ChartDataPoint: Identifiable, Equatable {
+    /// Use date as stable identity to avoid unnecessary chart redraws
+    var id: Date {
+        date
+    }
+
     let date: Date
     let value: Double
     let isAggregate: Bool
@@ -349,43 +379,30 @@ struct NativeChartCard: View {
     // MARK: - Formatting Helpers
 
     private func formatAxisLabel(_ date: Date) -> String {
-        let formatter = DateFormatter()
-
         switch timeRange {
         case .day:
-            formatter.dateFormat = "ha"
-            return formatter.string(from: date).lowercased()
+            ChartFormatters.axisHour.string(from: date).lowercased()
         case .week:
-            formatter.dateFormat = "EEE"
-            return formatter.string(from: date)
+            ChartFormatters.axisWeekday.string(from: date)
         case .month:
-            formatter.dateFormat = "d"
-            return formatter.string(from: date)
+            ChartFormatters.axisDay.string(from: date)
         case .sixMonths:
-            formatter.dateFormat = "MMM"
-            return formatter.string(from: date)
+            ChartFormatters.axisMonth.string(from: date)
         case .year:
-            formatter.dateFormat = "MMMMM"
-            return formatter.string(from: date)
+            ChartFormatters.axisMonthLetter.string(from: date)
         }
     }
 
     private func formatSelectedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-
         switch timeRange {
         case .day:
-            formatter.dateFormat = "h:mm a"
-            return formatter.string(from: date)
+            ChartFormatters.selectedTime.string(from: date)
         case .week:
-            formatter.dateFormat = "EEE, MMM d"
-            return formatter.string(from: date)
+            ChartFormatters.selectedWeekday.string(from: date)
         case .month, .sixMonths:
-            formatter.dateFormat = "MMM d, yyyy"
-            return formatter.string(from: date)
+            ChartFormatters.selectedFull.string(from: date)
         case .year:
-            formatter.dateFormat = "MMMM yyyy"
-            return formatter.string(from: date)
+            ChartFormatters.selectedMonth.string(from: date)
         }
     }
 
@@ -396,4 +413,64 @@ struct NativeChartCard: View {
             String(format: "%.1f", value)
         }
     }
+}
+
+// MARK: - Cached DateFormatters
+
+private enum ChartFormatters {
+    // Axis label formatters
+    static let axisHour: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ha"
+        return formatter
+    }()
+
+    static let axisWeekday: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE"
+        return formatter
+    }()
+
+    static let axisDay: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        return formatter
+    }()
+
+    static let axisMonth: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+        return formatter
+    }()
+
+    static let axisMonthLetter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMMM"
+        return formatter
+    }()
+
+    // Selected date formatters
+    static let selectedTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        return formatter
+    }()
+
+    static let selectedWeekday: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE, MMM d"
+        return formatter
+    }()
+
+    static let selectedFull: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy"
+        return formatter
+    }()
+
+    static let selectedMonth: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter
+    }()
 }

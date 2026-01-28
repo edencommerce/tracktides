@@ -36,7 +36,9 @@ struct ChartsView: View {
                         withAnimation {
                             proxy.scrollTo(section, anchor: .top)
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        // Use Task for proper lifecycle management
+                        Task {
+                            try? await Task.sleep(for: .milliseconds(500))
                             scrollToSection = nil
                         }
                     }

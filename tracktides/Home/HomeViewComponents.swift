@@ -52,8 +52,6 @@ struct NextShotCountdown: View {
 
     @State private var timeRemaining: TimeInterval = 0
 
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
     var body: some View {
         Group {
             if isOverdue {
@@ -80,8 +78,12 @@ struct NextShotCountdown: View {
         .onAppear {
             timeRemaining = targetDate.timeIntervalSince(Date())
         }
-        .onReceive(timer) { _ in
-            timeRemaining = targetDate.timeIntervalSince(Date())
+        .task {
+            // Update once per minute since we only display days
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(60))
+                timeRemaining = targetDate.timeIntervalSince(Date())
+            }
         }
     }
 }
@@ -136,12 +138,15 @@ struct ShotHistoryBars: View {
     let shotCount: Int
     let color: Color
 
+    /// Deterministic heights to avoid flickering on re-render
+    private static let barHeights: [CGFloat] = [25, 18, 32, 22, 28, 15, 30, 24]
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 4) {
             ForEach(0..<min(shotCount, 8), id: \.self) { index in
                 RoundedRectangle(cornerRadius: 2)
                     .fill(index == min(shotCount, 8) - 1 ? color : color.opacity(0.3))
-                    .frame(width: 6, height: CGFloat.random(in: 15...35))
+                    .frame(width: 6, height: Self.barHeights[index])
             }
         }
         .frame(height: 40)

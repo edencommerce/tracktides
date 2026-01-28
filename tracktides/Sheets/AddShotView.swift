@@ -1,20 +1,11 @@
 import SwiftUI
 
 struct AddShotView: View {
-    @Environment(\.dismiss) private var dismiss: DismissAction
+    @Environment(\.dismiss) private var dismiss
 
-    // MARK: - State
+    let isEditing: Bool
+    let initialDate: Date
 
-    @State private var selectedDate: Date = .init()
-    @State private var timeTaken: Date = .init()
-    @State private var medicationName: String = "Tirzepatide"
-    @State private var dosageStrength: String = "15mg"
-    @State private var customDosage: String = ""
-    @State private var injectionSite: String = "Stomach - Lower Left"
-    @State private var painLevel: Double = 0
-    @State private var notes: String = ""
-
-    private let medications: [String] = ["Tirzepatide", "Semaglutide", "Retatrutide", "BPC-157", "Other"]
     private let dosages: [String] = ["2.5mg", "5mg", "7.5mg", "10mg", "12.5mg", "15mg", "Custom"]
     private let injectionSites: [String] = [
         "Stomach - Upper Left",
@@ -26,8 +17,61 @@ struct AddShotView: View {
         "Arm - Left",
         "Arm - Right"
     ]
+    private let commonSideEffects: [String] = [
+        "Nausea",
+        "Vomiting",
+        "Diarrhea",
+        "Constipation",
+        "Abdominal pain",
+        "Acid reflux",
+        "Loss of appetite",
+        "Fatigue",
+        "Headache",
+        "Dizziness",
+        "Injection site reaction"
+    ]
 
-    // MARK: - Body
+    @State private var selectedDate: Date
+    @State private var timeTaken: Date
+    @State private var selectedMedicationID: String
+    @State private var dosageStrength: String
+    @State private var customDosage: String
+    @State private var injectionSite: String
+    @State private var painLevel: Double
+    @State private var shotNotes: String
+    @State private var selectedSideEffects: Set<String>
+    @State private var sideEffectSeverities: [String: Int]
+    @State private var sideEffectNotes: String
+    @State private var showingDeleteConfirmation: Bool = false
+    @State private var medicationPreferences = MedicationPreferences()
+
+    private var maxAllowedTime: Date {
+        if Calendar.current.isDateInToday(selectedDate) {
+            Date()
+        } else {
+            Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: selectedDate) ?? Date()
+        }
+    }
+
+    private var enabledMedications: [Medication] {
+        medicationPreferences.enabledMedications
+    }
+
+    init(isEditing: Bool = false, date: Date = Date()) {
+        self.isEditing = isEditing
+        self.initialDate = date
+        _selectedDate = State(initialValue: date)
+        _timeTaken = State(initialValue: date)
+        _selectedMedicationID = State(initialValue: MedicationDatabase.tirzepatide.id)
+        _dosageStrength = State(initialValue: "15mg")
+        _customDosage = State(initialValue: "")
+        _injectionSite = State(initialValue: "Stomach - Lower Left")
+        _painLevel = State(initialValue: 0)
+        _shotNotes = State(initialValue: "")
+        _selectedSideEffects = State(initialValue: [])
+        _sideEffectSeverities = State(initialValue: [:])
+        _sideEffectNotes = State(initialValue: "")
+    }
 
     var body: some View {
         NavigationStack {
@@ -35,9 +79,14 @@ struct AddShotView: View {
                 dateSection
                 timeSection
                 detailsSection
+                sideEffectsSection
                 notesSection
+
+                if isEditing {
+                    deleteSection
+                }
             }
-            .navigationTitle("Add Shot")
+            .navigationTitle(isEditing ? "Edit Shot" : "Add Shot")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -47,25 +96,29 @@ struct AddShotView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        // Save action
                         dismiss()
                     }
                 }
             }
             .onChange(of: selectedDate) {
-                // Clamp time if switching to today and time is in the future
                 if Calendar.current.isDateInToday(selectedDate), timeTaken > Date() {
                     timeTaken = Date()
                 }
             }
+            .alert("Delete Shot", isPresented: $showingDeleteConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    dismiss()
+                }
+            } message: {
+                Text("Are you sure you want to delete this shot? This action cannot be undone.")
+            }
         }
     }
-}
 
-// MARK: - Sections
+    // MARK: - Sections
 
-private extension AddShotView {
-    var dateSection: some View {
+    private var dateSection: some View {
         Section("Date") {
             HStack {
                 Button {
@@ -114,7 +167,7 @@ private extension AddShotView {
         }
     }
 
-    var timeSection: some View {
+    private var timeSection: some View {
         Section("Time") {
             DatePicker(
                 "Time Taken",
@@ -125,20 +178,12 @@ private extension AddShotView {
         }
     }
 
-    var maxAllowedTime: Date {
-        if Calendar.current.isDateInToday(selectedDate) {
-            Date()
-        } else {
-            // For past dates, allow any time (end of that day)
-            Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: selectedDate) ?? Date()
-        }
-    }
-
-    var detailsSection: some View {
+    private var detailsSection: some View {
         Section("Details") {
-            Picker("Medication Name", selection: $medicationName) {
-                ForEach(medications, id: \.self) { medication in
-                    Text(medication).tag(medication)
+            Picker("Medication", selection: $selectedMedicationID) {
+                ForEach(enabledMedications) { medication in
+                    MedicationPickerLabel(medication: medication)
+                        .tag(medication.id)
                 }
             }
 
@@ -177,14 +222,102 @@ private extension AddShotView {
         }
     }
 
-    var notesSection: some View {
+    private var sideEffectsSection: some View {
+        Section {
+            ForEach(commonSideEffects, id: \.self) { effect in
+                Button {
+                    toggleSideEffect(effect)
+                } label: {
+                    HStack {
+                        Text(effect)
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        if selectedSideEffects.contains(effect) {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(.teal)
+                                .fontWeight(.semibold)
+                        }
+                    }
+                }
+            }
+
+            if !selectedSideEffects.isEmpty {
+                TextField("Additional notes about side effects...", text: $sideEffectNotes, axis: .vertical)
+                    .lineLimit(2...4)
+            }
+        } header: {
+            Text("Side Effects")
+        } footer: {
+            Text("Select any side effects you experienced after this shot.")
+        }
+    }
+
+    private var notesSection: some View {
         Section("Shot Notes") {
-            TextField("Add notes", text: $notes, axis: .vertical)
+            TextField("Add notes", text: $shotNotes, axis: .vertical)
                 .lineLimit(3...6)
+        }
+    }
+
+    private var deleteSection: some View {
+        Section {
+            Button(role: .destructive) {
+                showingDeleteConfirmation = true
+            } label: {
+                HStack {
+                    Spacer()
+                    Text("Delete Shot")
+                    Spacer()
+                }
+            }
+        }
+    }
+
+    // MARK: - Helpers
+
+    private func toggleSideEffect(_ effect: String) {
+        if selectedSideEffects.contains(effect) {
+            selectedSideEffects.remove(effect)
+            sideEffectSeverities.removeValue(forKey: effect)
+        } else {
+            selectedSideEffects.insert(effect)
+            sideEffectSeverities[effect] = 1
         }
     }
 }
 
-#Preview {
+// MARK: - Medication Picker Label
+
+private struct MedicationPickerLabel: View {
+    let medication: Medication
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Text(medication.name)
+
+            if !medication.brandNames.isEmpty {
+                Text("(\(medication.brandNames.first ?? ""))")
+                    .foregroundStyle(.secondary)
+            }
+
+            if medication.isFDAApproved {
+                Text("FDA")
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 4)
+                    .padding(.vertical, 1)
+                    .background(Color.green.opacity(0.2))
+                    .foregroundStyle(.green)
+                    .clipShape(Capsule())
+            }
+        }
+    }
+}
+
+#Preview("Add Shot") {
     AddShotView()
+}
+
+#Preview("Edit Shot") {
+    AddShotView(isEditing: true, date: Date())
 }

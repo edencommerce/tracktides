@@ -20,6 +20,24 @@
 		TracktidesBuildFile016 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile016 /* ProfileView.swift */; };
 		TracktidesBuildFile020 /* SettingsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile020 /* SettingsViews.swift */; };
 		TracktidesBuildFile021 /* AddShotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile021 /* AddShotView.swift */; };
+		TracktidesBuildFile022 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile022 /* SplashScreenView.swift */; };
+		TracktidesBuildFile023 /* Shot.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile023 /* Shot.swift */; };
+		TracktidesBuildFile024 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile024 /* CalendarView.swift */; };
+		TracktidesBuildFile025 /* SideEffectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile025 /* SideEffectsView.swift */; };
+		TracktidesBuildFile026 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile026 /* NotesView.swift */; };
+		TracktidesBuildFile027 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile027 /* ChartsView.swift */; };
+		TracktidesBuildFile028 /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile028 /* Medication.swift */; };
+		TracktidesBuildFile029 /* MedicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile029 /* MedicationsView.swift */; };
+		TracktidesBuildFile030 /* ManageDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile030 /* ManageDataView.swift */; };
+		TracktidesBuildFile031 /* ShotHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile031 /* ShotHistoryView.swift */; };
+		TracktidesBuildFile033 /* HomeViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile033 /* HomeViewComponents.swift */; };
+		TracktidesBuildFile034 /* WeightDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile034 /* WeightDetailView.swift */; };
+		TracktidesBuildFile035 /* WeightChangeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile035 /* WeightChangeDetailView.swift */; };
+		TracktidesBuildFile036 /* GoalProgressDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile036 /* GoalProgressDetailView.swift */; };
+		TracktidesBuildFile037 /* BMIDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile037 /* BMIDetailView.swift */; };
+		TracktidesBuildFile038 /* HealthDetailComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile038 /* HealthDetailComponents.swift */; };
+		TracktidesBuildFile039 /* ChartComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile039 /* ChartComponents.swift */; };
+		TracktidesBuildFile040 /* ChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile040 /* ChartsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +54,24 @@
 		TracktideSourceFile016 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		TracktideSourceFile020 /* SettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViews.swift; sourceTree = "<group>"; };
 		TracktideSourceFile021 /* AddShotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShotView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile022 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile023 /* Shot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot.swift; sourceTree = "<group>"; };
+		TracktideSourceFile024 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile025 /* SideEffectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffectsView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile026 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile027 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile028 /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
+		TracktideSourceFile029 /* MedicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile030 /* ManageDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDataView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile031 /* ShotHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotHistoryView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile033 /* HomeViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewComponents.swift; sourceTree = "<group>"; };
+		TracktideSourceFile034 /* WeightDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDetailView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile035 /* WeightChangeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightChangeDetailView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile036 /* GoalProgressDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressDetailView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile037 /* BMIDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMIDetailView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile038 /* HealthDetailComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDetailComponents.swift; sourceTree = "<group>"; };
+		TracktideSourceFile039 /* ChartComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartComponents.swift; sourceTree = "<group>"; };
+		TracktideSourceFile040 /* ChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,13 +86,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		TracktideCalendarGroup /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile024 /* CalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		TracktideChartsGroup /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile027 /* ChartsView.swift */,
+				TracktideSourceFile039 /* ChartComponents.swift */,
+				TracktideSourceFile040 /* ChartsViewModel.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
 		TracktideGroup /* tracktides */ = {
 			isa = PBXGroup;
 			children = (
 				TracktideSourceFile001 /* TracktidesApp.swift */,
 				TracktideSourceFile002 /* ContentView.swift */,
+				TracktideSourceFile022 /* SplashScreenView.swift */,
 				TracktideModelsGroup /* Models */,
 				TracktideHomeGroup /* Home */,
+				TracktideCalendarGroup /* Calendar */,
+				TracktideChartsGroup /* Charts */,
 				TracktideProfileGroup /* Profile */,
 				TracktidesheetsGroup /* Sheets */,
 				TracktideSourceFile003 /* Assets.xcassets */,
@@ -66,12 +123,39 @@
 			path = tracktides;
 			sourceTree = "<group>";
 		};
+		TracktideHomeGroup /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile009 /* HomeView.swift */,
+				TracktideSourceFile033 /* HomeViewComponents.swift */,
+				TracktideSourceFile031 /* ShotHistoryView.swift */,
+				TracktideSourceFile034 /* WeightDetailView.swift */,
+				TracktideSourceFile035 /* WeightChangeDetailView.swift */,
+				TracktideSourceFile036 /* GoalProgressDetailView.swift */,
+				TracktideSourceFile037 /* BMIDetailView.swift */,
+				TracktideSourceFile038 /* HealthDetailComponents.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		TracktideMainGroup = {
 			isa = PBXGroup;
 			children = (
 				TracktideGroup /* tracktides */,
 				TracktideProducts /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		TracktideModelsGroup /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile006 /* Tab.swift */,
+				TracktideSourceFile007 /* WeekDay.swift */,
+				TracktideSourceFile008 /* ArrayExtensions.swift */,
+				TracktideSourceFile023 /* Shot.swift */,
+				TracktideSourceFile028 /* Medication.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		TracktidePreviewGroup /* Preview Content */ = {
@@ -90,28 +174,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		TracktideModelsGroup /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				TracktideSourceFile006 /* Tab.swift */,
-				TracktideSourceFile007 /* WeekDay.swift */,
-				TracktideSourceFile008 /* ArrayExtensions.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		TracktideHomeGroup /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				TracktideSourceFile009 /* HomeView.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
 		TracktideProfileGroup /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				TracktideSourceFile016 /* ProfileView.swift */,
+				TracktideSourceFile029 /* MedicationsView.swift */,
+				TracktideSourceFile030 /* ManageDataView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -121,6 +189,8 @@
 			children = (
 				TracktideSourceFile020 /* SettingsViews.swift */,
 				TracktideSourceFile021 /* AddShotView.swift */,
+				TracktideSourceFile025 /* SideEffectsView.swift */,
+				TracktideSourceFile026 /* NotesView.swift */,
 			);
 			path = Sheets;
 			sourceTree = "<group>";
@@ -153,7 +223,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					TracktideTarget = {
 						CreatedOnToolsVersion = 16.0;
@@ -209,6 +279,24 @@
 				TracktidesBuildFile016 /* ProfileView.swift in Sources */,
 				TracktidesBuildFile020 /* SettingsViews.swift in Sources */,
 				TracktidesBuildFile021 /* AddShotView.swift in Sources */,
+				TracktidesBuildFile022 /* SplashScreenView.swift in Sources */,
+				TracktidesBuildFile023 /* Shot.swift in Sources */,
+				TracktidesBuildFile024 /* CalendarView.swift in Sources */,
+				TracktidesBuildFile025 /* SideEffectsView.swift in Sources */,
+				TracktidesBuildFile026 /* NotesView.swift in Sources */,
+				TracktidesBuildFile027 /* ChartsView.swift in Sources */,
+				TracktidesBuildFile028 /* Medication.swift in Sources */,
+				TracktidesBuildFile029 /* MedicationsView.swift in Sources */,
+				TracktidesBuildFile030 /* ManageDataView.swift in Sources */,
+				TracktidesBuildFile031 /* ShotHistoryView.swift in Sources */,
+				TracktidesBuildFile033 /* HomeViewComponents.swift in Sources */,
+				TracktidesBuildFile034 /* WeightDetailView.swift in Sources */,
+				TracktidesBuildFile035 /* WeightChangeDetailView.swift in Sources */,
+				TracktidesBuildFile036 /* GoalProgressDetailView.swift in Sources */,
+				TracktidesBuildFile037 /* BMIDetailView.swift in Sources */,
+				TracktidesBuildFile038 /* HealthDetailComponents.swift in Sources */,
+				TracktidesBuildFile039 /* ChartComponents.swift in Sources */,
+				TracktidesBuildFile040 /* ChartsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +311,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tracktides/Preview Content\"";
-				DEVELOPMENT_TEAM = 2VYXS4APM6;
+				EMIT_FRONTEND_COMMAND_LINES = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Tracktides;
@@ -238,6 +326,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tracktides.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -283,6 +375,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2VYXS4APM6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -306,6 +399,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -346,6 +440,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2VYXS4APM6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -362,6 +457,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -375,7 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tracktides/Preview Content\"";
-				DEVELOPMENT_TEAM = 2VYXS4APM6;
+				EMIT_FRONTEND_COMMAND_LINES = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Tracktides;
@@ -390,6 +486,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tracktides.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

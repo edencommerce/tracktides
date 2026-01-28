@@ -90,6 +90,66 @@ Alternatively, use command line:
 xcodebuild -project tracktides.xcodeproj -scheme tracktides -destination 'platform=iOS Simulator,name=iPhone 16' build
 ```
 
+## Hot Reloading with Inject
+
+The project uses [Inject](https://github.com/krzysztofzablocki/Inject) for hot reloading SwiftUI views during development.
+
+### Requirements
+
+- [InjectionIII.app](https://github.com/johnno1962/InjectionIII/releases) running and watching the project directory
+- Views must have `@ObserveInjection var inject` and `.enableInjection()` modifier
+
+### Views with Hot Reload Enabled
+
+- `ContentView.swift` - Main tab view
+
+### How It Works
+
+1. InjectionIII watches for file changes
+2. On save (Cmd+S in Xcode), it recompiles just that file
+3. The new code is injected into the running app
+4. Views with `@ObserveInjection` automatically refresh
+
+### Claude Code Workflow
+
+**For simple view changes (colors, text, layout, modifiers):**
+- Edit the file
+- Tell user to save in Xcode (Cmd+S) to trigger hot reload
+- **Skip `build_run_sim`** - no rebuild needed
+
+**When to rebuild (`build_run_sim`):**
+- Adding new files
+- Changing models, enums, or structs
+- Adding `@ObserveInjection` to new views
+- Injection errors or platform mismatch
+
+**If injection fails with platform errors:**
+1. Run `clean` with `platform: "iOS Simulator"`
+2. Delete DerivedData if needed: `rm -rf ~/Library/Developer/Xcode/DerivedData/tracktides-*`
+3. Rebuild with `build_run_sim`
+
+### Adding Hot Reload to New Views
+
+```swift
+import Inject
+
+struct MyNewView: View {
+    @ObserveInjection var inject
+
+    var body: some View {
+        // View content
+        .enableInjection()
+    }
+}
+```
+
+### Troubleshooting
+
+- **"No such module 'Inject'"** - Build the project first
+- **Platform mismatch errors** - Clean build folder, rebuild
+- **Changes not appearing** - Ensure file is saved in Xcode, not just external editor
+- **InjectionIII not connecting** - Check File Watcher is set to project directory
+
 ## Liquid Glass APIs
 
 The app uses Apple's native Liquid Glass APIs introduced in iOS 26:

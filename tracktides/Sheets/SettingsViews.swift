@@ -3,13 +3,58 @@ import SwiftUI
 // MARK: - Personal Details View
 
 struct PersonalDetailsView: View {
+    @State private var name: String = ""
+    @State private var heightFeet: Int = 5
+    @State private var heightInches: Int = 10
+    @State private var goalWeight: String = ""
+    @State private var startDate: Date = .init()
+
     var body: some View {
         Form {
             Section("Name") {
-                Text("Not set").foregroundStyle(.secondary)
+                TextField("Enter your name", text: $name)
             }
-            Section("Default Settings") {
-                LabeledContent("Morning dose", value: "8:00 AM")
+
+            Section("Height") {
+                HStack {
+                    Spacer()
+                    Picker("Feet", selection: $heightFeet) {
+                        ForEach(4...7, id: \.self) { feet in
+                            Text("\(feet) ft").tag(feet)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(width: 80, height: 100)
+                    .clipped()
+
+                    Picker("Inches", selection: $heightInches) {
+                        ForEach(0...11, id: \.self) { inches in
+                            Text("\(inches) in").tag(inches)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(width: 80, height: 100)
+                    .clipped()
+                    Spacer()
+                }
+            }
+
+            Section("Goal Weight") {
+                HStack {
+                    TextField("Enter goal weight", text: $goalWeight)
+                        .keyboardType(.decimalPad)
+                    Text("lb")
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            Section("Start Date") {
+                DatePicker(
+                    "Start Date",
+                    selection: $startDate,
+                    in: ...Date(),
+                    displayedComponents: .date
+                )
             }
         }
         .navigationTitle("Personal Details")
@@ -20,6 +65,7 @@ struct PersonalDetailsView: View {
 
 struct AppearanceView: View {
     @AppStorage("appAppearance") private var appearance: Int = 0
+    @AppStorage("hapticFeedbackEnabled") private var hapticFeedbackEnabled: Bool = true
 
     var body: some View {
         Form {
@@ -31,6 +77,10 @@ struct AppearanceView: View {
                 }
                 .pickerStyle(.inline)
                 .labelsHidden()
+            }
+
+            Section("Feedback") {
+                Toggle("Haptic Feedback", isOn: $hapticFeedbackEnabled)
             }
         }
         .navigationTitle("Appearance")
@@ -90,25 +140,6 @@ struct UnitsView: View {
     }
 }
 
-// MARK: - Display Settings View
-
-struct DisplaySettingsView: View {
-    @State private var showGraph: Bool = true
-    @State private var showCalendar: Bool = true
-    @State private var compactMode: Bool = false
-
-    var body: some View {
-        Form {
-            Section("Home Screen") {
-                Toggle("Show Progress Graph", isOn: $showGraph)
-                Toggle("Show Calendar View", isOn: $showCalendar)
-                Toggle("Compact Mode", isOn: $compactMode)
-            }
-        }
-        .navigationTitle("Display Settings")
-    }
-}
-
 // MARK: - Support View
 
 struct SupportView: View {
@@ -124,6 +155,41 @@ struct SupportView: View {
             }
         }
         .navigationTitle("Support")
+    }
+}
+
+// MARK: - About View
+
+struct AboutView: View {
+    var body: some View {
+        List {
+            Section {
+                Text("""
+                I built Tracktides because I wanted a simple, private way to track my health journey. \
+                After trying dozens of apps that either cost a fortune or wanted all my data, \
+                I decided to create something different.
+
+                This app is completely free. No subscriptions, no ads, no catch.
+                """)
+                .font(.subheadline)
+            } header: {
+                Text("Why I Made This")
+            }
+
+            Section {
+                Text("""
+                Your data never leaves your device. Everything is stored locally using Apple's \
+                secure frameworks. I can't see your information, and neither can anyone else.
+
+                No account required. No cloud sync. No analytics tracking your every move. \
+                Just a simple tool that respects your privacy.
+                """)
+                .font(.subheadline)
+            } header: {
+                Text("Privacy First")
+            }
+        }
+        .navigationTitle("About")
     }
 }
 
@@ -144,5 +210,11 @@ struct SupportView: View {
 #Preview("Notifications") {
     NavigationStack {
         NotificationsView()
+    }
+}
+
+#Preview("About") {
+    NavigationStack {
+        AboutView()
     }
 }

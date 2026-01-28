@@ -1,9 +1,6 @@
 # SwiftLint Configuration for tracktides
 # https://github.com/realm/SwiftLint
 
-# Swift version
-swift_version: "6.0"
-
 # Rules to enable that are not part of default set
 opt_in_rules:
   - closure_spacing
@@ -16,7 +13,6 @@ opt_in_rules:
   - sorted_imports
   - vertical_parameter_alignment_on_call
   - empty_count
-  - explicit_type_interface
   - multiline_parameters
   - closure_end_indentation
   - operator_usage_whitespace
@@ -24,6 +20,7 @@ opt_in_rules:
 # Rules to disable from default set
 disabled_rules:
   - trailing_whitespace  # SwiftFormat handles this
+  - explicit_type_interface  # Conflicts with SwiftFormat redundant type removal
 
 # Analyzer rules (only run with 'swiftlint analyze')
 analyzer_rules:

@@ -7,18 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		TracktidesBuildFile001 /* tracktideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile001; };
-		TracktidesBuildFile002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile002; };
-		TracktidesBuildFile003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile003; };
-		TracktidesBuildFile004 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile004; };
+		994139B02F298E6800A7A818 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 994139AF2F298E6800A7A818 /* Inject */; };
+		TracktidesBuildFile001 /* TracktidesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile001 /* TracktidesApp.swift */; };
+		TracktidesBuildFile002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile002 /* ContentView.swift */; };
+		TracktidesBuildFile003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile003 /* Assets.xcassets */; };
+		TracktidesBuildFile004 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile004 /* Preview Assets.xcassets */; };
+		TracktidesBuildFile005 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile005 /* PrivacyInfo.xcprivacy */; };
+		TracktidesBuildFile006 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile006 /* Tab.swift */; };
+		TracktidesBuildFile007 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile007 /* WeekDay.swift */; };
+		TracktidesBuildFile008 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile008 /* ArrayExtensions.swift */; };
+		TracktidesBuildFile009 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile009 /* HomeView.swift */; };
+		TracktidesBuildFile016 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile016 /* ProfileView.swift */; };
+		TracktidesBuildFile020 /* SettingsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile020 /* SettingsViews.swift */; };
+		TracktidesBuildFile021 /* AddShotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = TracktideSourceFile021 /* AddShotView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		TracktideApp /* tracktides.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tracktides.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		TracktideSourceFile001 /* tracktideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tracktideApp.swift; sourceTree = "<group>"; };
+		TracktideSourceFile001 /* TracktidesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracktidesApp.swift; sourceTree = "<group>"; };
 		TracktideSourceFile002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		TracktideSourceFile003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		TracktideSourceFile004 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		TracktideSourceFile005 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		TracktideSourceFile006 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
+		TracktideSourceFile007 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
+		TracktideSourceFile008 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		TracktideSourceFile009 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile016 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		TracktideSourceFile020 /* SettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViews.swift; sourceTree = "<group>"; };
+		TracktideSourceFile021 /* AddShotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShotView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,57 +43,98 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				994139B02F298E6800A7A818 /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		TracktideMainGroup = {
+		TracktideGroup /* tracktides */ = {
 			isa = PBXGroup;
 			children = (
-				TracktideGroup,
-				TracktideProducts,
-			);
-			sourceTree = "<group>";
-		};
-		TracktideProducts = {
-			isa = PBXGroup;
-			children = (
-				TracktideApp,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		TracktideGroup = {
-			isa = PBXGroup;
-			children = (
-				TracktideSourceFile001,
-				TracktideSourceFile002,
-				TracktideSourceFile003,
-				TracktidePreviewGroup,
+				TracktideSourceFile001 /* TracktidesApp.swift */,
+				TracktideSourceFile002 /* ContentView.swift */,
+				TracktideModelsGroup /* Models */,
+				TracktideHomeGroup /* Home */,
+				TracktideProfileGroup /* Profile */,
+				TracktidesheetsGroup /* Sheets */,
+				TracktideSourceFile003 /* Assets.xcassets */,
+				TracktideSourceFile005 /* PrivacyInfo.xcprivacy */,
+				TracktidePreviewGroup /* Preview Content */,
 			);
 			path = tracktides;
 			sourceTree = "<group>";
 		};
-		TracktidePreviewGroup = {
+		TracktideMainGroup = {
 			isa = PBXGroup;
 			children = (
-				TracktideSourceFile004,
+				TracktideGroup /* tracktides */,
+				TracktideProducts /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		TracktidePreviewGroup /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile004 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		TracktideProducts /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideApp /* tracktides.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		TracktideModelsGroup /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile006 /* Tab.swift */,
+				TracktideSourceFile007 /* WeekDay.swift */,
+				TracktideSourceFile008 /* ArrayExtensions.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		TracktideHomeGroup /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile009 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		TracktideProfileGroup /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile016 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		TracktidesheetsGroup /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				TracktideSourceFile020 /* SettingsViews.swift */,
+				TracktideSourceFile021 /* AddShotView.swift */,
+			);
+			path = Sheets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		TracktideTarget = {
+		TracktideTarget /* tracktides */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = TracktideConfigList;
+			buildConfigurationList = TracktideConfigList /* Build configuration list for PBXNativeTarget "tracktides" */;
 			buildPhases = (
-				TracktideSourcesBuildPhase,
-				TracktideFrameworks,
-				TracktideResourcesBuildPhase,
+				TracktideSourcesBuildPhase /* Sources */,
+				TracktideFrameworks /* Frameworks */,
+				TracktideResourcesBuildPhase /* Resources */,
 			);
 			buildRules = (
 			);
@@ -84,13 +142,13 @@
 			);
 			name = tracktides;
 			productName = tracktides;
-			productReference = TracktideApp;
+			productReference = TracktideApp /* tracktides.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		TracktideProject = {
+		TracktideProject /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
@@ -102,7 +160,7 @@
 					};
 				};
 			};
-			buildConfigurationList = TracktideProjectConfigList;
+			buildConfigurationList = TracktideProjectConfigList /* Build configuration list for PBXProject "tracktides" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -111,42 +169,53 @@
 			);
 			mainGroup = TracktideMainGroup;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				994139AE2F298E6800A7A818 /* XCRemoteSwiftPackageReference "Inject" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = TracktideProducts;
+			productRefGroup = TracktideProducts /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				TracktideTarget,
+				TracktideTarget /* tracktides */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		TracktideResourcesBuildPhase = {
+		TracktideResourcesBuildPhase /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				TracktidesBuildFile004,
-				TracktidesBuildFile003,
+				TracktidesBuildFile004 /* Preview Assets.xcassets in Resources */,
+				TracktidesBuildFile003 /* Assets.xcassets in Resources */,
+				TracktidesBuildFile005 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		TracktideSourcesBuildPhase = {
+		TracktideSourcesBuildPhase /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				TracktidesBuildFile002,
-				TracktidesBuildFile001,
+				TracktidesBuildFile002 /* ContentView.swift in Sources */,
+				TracktidesBuildFile001 /* TracktidesApp.swift in Sources */,
+				TracktidesBuildFile006 /* Tab.swift in Sources */,
+				TracktidesBuildFile007 /* WeekDay.swift in Sources */,
+				TracktidesBuildFile008 /* ArrayExtensions.swift in Sources */,
+				TracktidesBuildFile009 /* HomeView.swift in Sources */,
+				TracktidesBuildFile016 /* ProfileView.swift in Sources */,
+				TracktidesBuildFile020 /* SettingsViews.swift in Sources */,
+				TracktidesBuildFile021 /* AddShotView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		TracktideDebugConfig = {
+		TracktideDebugConfig /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -154,8 +223,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tracktides/Preview Content\"";
+				DEVELOPMENT_TEAM = 2VYXS4APM6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Tracktides;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -170,47 +241,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tracktides.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 6.0;
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -enable-upcoming-feature StrictConcurrency -enable-upcoming-feature ConciseMagicFile -enable-upcoming-feature ExistentialAny";
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		TracktideReleaseConfig = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"tracktides/Preview Content\"";
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tracktides.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 6.0;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -enable-upcoming-feature StrictConcurrency -enable-upcoming-feature ConciseMagicFile -enable-upcoming-feature ExistentialAny";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		TracktideProjectDebugConfig = {
+		TracktideProjectDebugConfig /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -273,7 +311,7 @@
 			};
 			name = Debug;
 		};
-		TracktideProjectReleaseConfig = {
+		TracktideProjectReleaseConfig /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -329,28 +367,80 @@
 			};
 			name = Release;
 		};
+		TracktideReleaseConfig /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"tracktides/Preview Content\"";
+				DEVELOPMENT_TEAM = 2VYXS4APM6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Tracktides;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tracktides.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		TracktideConfigList = {
+		TracktideConfigList /* Build configuration list for PBXNativeTarget "tracktides" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				TracktideDebugConfig,
-				TracktideReleaseConfig,
+				TracktideDebugConfig /* Debug */,
+				TracktideReleaseConfig /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		TracktideProjectConfigList = {
+		TracktideProjectConfigList /* Build configuration list for PBXProject "tracktides" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				TracktideProjectDebugConfig,
-				TracktideProjectReleaseConfig,
+				TracktideProjectDebugConfig /* Debug */,
+				TracktideProjectReleaseConfig /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		994139AE2F298E6800A7A818 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		994139AF2F298E6800A7A818 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 994139AE2F298E6800A7A818 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = TracktideProject;
+	rootObject = TracktideProject /* Project object */;
 }

@@ -34,6 +34,55 @@ This will install SwiftLint and SwiftFormat via Homebrew.
 
 ## Building and Running
 
+### Using XcodeBuildMCP (Recommended)
+
+This project is configured to use [XcodeBuildMCP](https://github.com/cameroncooke/XcodeBuildMCP) for AI-assisted Xcode automation. The MCP server provides tools for building, testing, and running the app directly from Claude.
+
+#### Key Tools for This Project
+
+| Tool | Purpose |
+|------|---------|
+| `discover_projs` | Find Xcode projects in the workspace |
+| `list_schemes` | List available build schemes |
+| `build_sim` | Build for iOS Simulator |
+| `boot_sim` | Boot a simulator |
+| `launch_app_sim` | Install and launch app on simulator |
+| `screenshot` | Capture simulator screenshots |
+| `test_sim` | Run tests on simulator |
+| `start_sim_log_cap` | Capture runtime logs |
+| `clean` | Clean build artifacts |
+
+#### Common Workflows
+
+**Build and run on simulator:**
+1. `discover_projs` - Find the tracktides.xcodeproj
+2. `list_schemes` - Verify "tracktides" scheme exists
+3. `build_sim` - Build for simulator
+4. `boot_sim` - Boot iPhone simulator
+5. `launch_app_sim` - Launch the app
+
+**Debug a build failure:**
+1. `build_sim` - Attempt build (errors returned in response)
+2. Fix code issues based on compiler output
+3. Rebuild until successful
+
+**Run tests:**
+1. `test_sim` - Run unit tests on simulator
+2. Review test results
+
+**Capture UI for review:**
+1. `screenshot` - Take simulator screenshot
+2. Use `snapshot_ui` for accessibility hierarchy
+
+#### Session Defaults
+
+Use `session_set_defaults` to avoid repeating project/scheme parameters:
+- Set project path: `/Users/jasonhe/dev/tracktides/tracktides.xcodeproj`
+- Set scheme: `tracktides`
+- Set simulator: `iPhone 16`
+
+### Manual Building
+
 Open `tracktides.xcodeproj` in Xcode and press Cmd+R to build and run.
 
 Alternatively, use command line:
@@ -73,6 +122,268 @@ When working with Liquid Glass:
 - Always group related glass elements in `GlassEffectContainer`
 - Use `.glassEffectID()` for elements that morph between states
 - Apply glass to navigation and control layers, not main content
+
+## Architecture Guidelines
+
+### Avoid Singletons, Prefer Actors and Dependency Injection
+
+```swift
+// ❌ Bad - Global singleton with shared mutable state
+class DataManager {
+    static let shared = DataManager()
+    var cache: [String: Data] = [:]  // Not thread-safe
+}
+
+// ✅ Good - Actor for thread-safe shared state
+actor DataCache {
+    private var cache: [String: Data] = [:]
+
+    func get(_ key: String) -> Data? {
+        cache[key]
+    }
+
+    func set(_ key: String, data: Data) {
+        cache[key] = data
+    }
+}
+
+// ✅ Good - Dependency injection via Environment
+@MainActor
+@Observable
+class TideViewModel {
+    private let apiClient: APIClientProtocol
+
+    init(apiClient: APIClientProtocol = APIClient()) {
+        self.apiClient = apiClient
+    }
+}
+
+// Inject via SwiftUI environment
+struct ContentView: View {
+    @State private var viewModel = TideViewModel()
+
+    var body: some View {
+        // Use viewModel
+    }
+}
+```
+
+### State Management Hierarchy
+
+1. **`@State`** - Local view state (simple values, UI state)
+2. **`@Observable`** - Shared state within a view hierarchy (Swift 6 preferred over `@ObservableObject`)
+3. **`@Environment`** - App-wide dependencies and settings
+4. **Actors** - Thread-safe shared resources (caches, network clients)
+
+## Accessibility Requirements
+
+The app must support all iOS accessibility features:
+
+### Dynamic Type
+
+```swift
+// ✅ Always use system fonts that scale
+Text("Tide Level")
+    .font(.headline)  // Automatically scales
+
+// ✅ For custom sizes, use relative scaling
+Text("Custom")
+    .font(.system(size: 18, weight: .medium, design: .rounded))
+    .dynamicTypeSize(...DynamicTypeSize.accessibility3)  // Set max if needed
+
+// ❌ Never use fixed sizes that ignore Dynamic Type
+Text("Fixed")
+    .font(.system(size: 14))  // Won't scale - avoid
+```
+
+### Dark Mode
+
+```swift
+// ✅ Use semantic colors that adapt
+Text("Title")
+    .foregroundStyle(.primary)
+
+Color.accentColor  // Adapts to system
+Color(.systemBackground)  // UIKit semantic colors
+
+// ✅ Define adaptive colors in asset catalog
+Color("TideBlue")  // With light/dark variants
+
+// ❌ Never hardcode colors
+Color(red: 0.2, green: 0.4, blue: 0.8)  // Won't adapt
+```
+
+### Right-to-Left (RTL) Layout
+
+```swift
+// ✅ Use leading/trailing instead of left/right
+HStack {
+    Text("Label")
+    Spacer()
+    Text("Value")
+}
+.padding(.leading, 16)  // Flips automatically for RTL
+
+// ✅ Images that should flip
+Image(systemName: "arrow.right")
+    .flipsForRightToLeftLayoutDirection(true)
+
+// ❌ Avoid absolute positioning
+.padding(.left, 16)  // Won't flip for RTL
+```
+
+### VoiceOver and Accessibility Labels
+
+```swift
+// ✅ Add meaningful labels
+Button(action: refreshTides) {
+    Image(systemName: "arrow.clockwise")
+}
+.accessibilityLabel("Refresh tide data")
+
+// ✅ Group related elements
+VStack {
+    Text("High Tide")
+    Text("3:42 PM")
+}
+.accessibilityElement(children: .combine)
+
+// ✅ Hide decorative elements
+Image("wave-decoration")
+    .accessibilityHidden(true)
+```
+
+## Common Pitfalls to Avoid
+
+### Swift 6 Concurrency Pitfalls
+
+```swift
+// ❌ UI updates from non-main actor
+actor DataFetcher {
+    func fetch() async {
+        let data = await api.getData()
+        viewModel.items = data  // ERROR: Not on MainActor
+    }
+}
+
+// ✅ Explicitly dispatch to MainActor
+actor DataFetcher {
+    func fetch() async {
+        let data = await api.getData()
+        await MainActor.run {
+            viewModel.items = data
+        }
+    }
+}
+
+// ❌ Capturing non-Sendable types across actor boundaries
+class UnsafeCache {  // Not Sendable
+    var data: [String: Any] = [:]
+}
+
+// ✅ Make it Sendable or use an actor
+actor SafeCache {
+    var data: [String: String] = [:]
+}
+```
+
+### SwiftUI View Pitfalls
+
+```swift
+// ❌ Heavy computation in body
+var body: some View {
+    let processed = heavyComputation(items)  // Runs every refresh
+    List(processed) { item in ... }
+}
+
+// ✅ Cache in @State or computed property
+@State private var processedItems: [Item] = []
+
+var body: some View {
+    List(processedItems) { item in ... }
+        .task { processedItems = await heavyComputation(items) }
+}
+
+// ❌ Creating objects in body
+var body: some View {
+    MyView(viewModel: ViewModel())  // New instance every render
+}
+
+// ✅ Use @State or @StateObject
+@State private var viewModel = ViewModel()
+
+// ❌ Forgetting @MainActor on ObservableObject
+class ViewModel: ObservableObject {
+    @Published var items: [Item] = []  // Unsafe if updated from background
+}
+
+// ✅ Always mark view models as @MainActor
+@MainActor
+class ViewModel: ObservableObject {
+    @Published var items: [Item] = []
+}
+```
+
+### Memory and Performance Pitfalls
+
+```swift
+// ❌ Strong reference cycles in closures
+class ViewModel {
+    var onComplete: (() -> Void)?
+
+    func setup() {
+        onComplete = {
+            self.doSomething()  // Strong capture creates cycle
+        }
+    }
+}
+
+// ✅ Use weak or unowned
+onComplete = { [weak self] in
+    self?.doSomething()
+}
+
+// ❌ Loading all data at once
+func loadAllTides() async -> [Tide] {
+    return await api.fetchAll()  // May be huge
+}
+
+// ✅ Use pagination or lazy loading
+func loadTides(page: Int, limit: Int = 20) async -> [Tide] {
+    return await api.fetch(page: page, limit: limit)
+}
+```
+
+### API and Networking Pitfalls
+
+```swift
+// ❌ Assuming network always succeeds
+let data = try! await URLSession.shared.data(from: url)
+
+// ✅ Handle all error cases
+do {
+    let (data, response) = try await URLSession.shared.data(from: url)
+    guard let httpResponse = response as? HTTPURLResponse,
+          (200...299).contains(httpResponse.statusCode) else {
+        throw APIError.invalidResponse
+    }
+    // Process data
+} catch {
+    // Show user-friendly error
+}
+
+// ❌ Not cancelling tasks when view disappears
+.onAppear {
+    Task {
+        await loadData()  // May complete after view is gone
+    }
+}
+
+// ✅ Use .task modifier (auto-cancels)
+.task {
+    await loadData()
+}
+```
 
 ## Code Style
 
@@ -333,3 +644,11 @@ Before committing code:
 - [Apple - Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
 - [SwiftLint Rules](https://realm.github.io/SwiftLint/rule-directory.html)
 - [Swift 6 Migration Guide](https://www.swift.org/migration/documentation/swift-6-concurrency-migration-guide/)
+
+## App Store & TestFlight Submission
+
+For detailed instructions on submitting to TestFlight and the App Store, see:
+- **[APP_STORE_SUBMISSION.md](APP_STORE_SUBMISSION.md)** - Complete submission guide
+- **[APP_ICON_GUIDE.md](APP_ICON_GUIDE.md)** - App icon requirements and tips
+
+The project includes a **Privacy Manifest** (`tracktides/PrivacyInfo.xcprivacy`) required for App Store submission. Update this file if you add features that use required reason APIs.

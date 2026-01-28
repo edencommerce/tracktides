@@ -10,10 +10,7 @@ struct HealthDetailCard<Content: View>: View {
         content
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(
-                Color(uiColor: .secondarySystemGroupedBackground),
-                in: RoundedRectangle(cornerRadius: 16)
-            )
+            .glassEffect(.regular, in: .rect(cornerRadius: 16))
     }
 }
 
@@ -46,10 +43,7 @@ struct StatCard: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(
-            Color(uiColor: .secondarySystemGroupedBackground),
-            in: RoundedRectangle(cornerRadius: 16)
-        )
+        .glassEffect(.regular, in: .rect(cornerRadius: 16))
     }
 }
 

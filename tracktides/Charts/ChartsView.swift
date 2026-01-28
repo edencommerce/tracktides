@@ -17,17 +17,19 @@ struct ChartsView: View {
         NavigationStack {
             ScrollViewReader { proxy in
                 ScrollView {
-                    VStack(spacing: 20) {
-                        timeRangePicker
+                    GlassEffectContainer {
+                        VStack(spacing: 20) {
+                            timeRangePicker
 
-                        LazyVStack(spacing: 24) {
-                            weightChart
-                            weightChangeChart
-                            painChart
+                            LazyVStack(spacing: 24) {
+                                weightChart
+                                weightChangeChart
+                                painChart
+                            }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
                 }
                 .onChange(of: scrollToSection) { _, section in
                     if let section {

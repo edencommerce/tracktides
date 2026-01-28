@@ -237,7 +237,7 @@ struct NativeChartCard: View {
                 .frame(height: 220)
         }
         .padding()
-        .background(Color(uiColor: .systemBackground), in: RoundedRectangle(cornerRadius: 16))
+        .glassEffect(.regular.interactive(), in: .rect(cornerRadius: 16))
         .onAppear {
             scrollPosition = Date()
         }

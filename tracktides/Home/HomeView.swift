@@ -48,14 +48,16 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    pinnedSection
-                    resultsSection
-                    shotHistorySection
+                GlassEffectContainer {
+                    VStack(alignment: .leading, spacing: 20) {
+                        pinnedSection
+                        resultsSection
+                        shotHistorySection
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                    .padding(.bottom, 32)
                 }
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 32)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Home")

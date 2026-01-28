@@ -40,10 +40,7 @@ struct HealthCard<Content: View>: View {
             content
         }
         .padding()
-        .background(
-            Color(uiColor: .secondarySystemGroupedBackground),
-            in: RoundedRectangle(cornerRadius: 16)
-        )
+        .glassEffect(.regular, in: .rect(cornerRadius: 16))
     }
 }
 

@@ -78,16 +78,18 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 32) {
-                    CalendarGridView(
-                        selectedDate: $selectedDate,
-                        shotDates: shotDates
-                    )
-                    .frame(height: 340)
+                GlassEffectContainer {
+                    VStack(spacing: 32) {
+                        CalendarGridView(
+                            selectedDate: $selectedDate,
+                            shotDates: shotDates
+                        )
+                        .frame(height: 340)
 
-                    dayDetailSection
+                        dayDetailSection
+                    }
+                    .padding(.top, 64)
                 }
-                .padding(.top, 64)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Calendar")
@@ -354,7 +356,7 @@ private struct CalendarHealthCard<Content: View>: View {
             content
         }
         .padding()
-        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16))
+        .glassEffect(.regular, in: .rect(cornerRadius: 16))
     }
 }
 
